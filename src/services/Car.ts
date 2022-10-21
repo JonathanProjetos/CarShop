@@ -10,7 +10,7 @@ class CarServices implements IService<ICar> {
     this._car = model;
   }
 
-  public async create(obj:unknown):Promise<ICar> {
+  public async created(obj:unknown):Promise<ICar> {
     const verify = CarZodSchema.safeParse(obj);
 
     if (!verify.success) throw verify.error;
@@ -19,15 +19,21 @@ class CarServices implements IService<ICar> {
     return created;
   }
 
-  public async read():Promise<ICar[]> {
+  public async findAll():Promise<ICar[]> {
     const findAll = await this._car.read();
     return findAll;
   }
 
-  public async readOne(_id:string):Promise<ICar> {
+  public async findById(_id:string):Promise<ICar> {
     const findById = await this._car.readOne(_id);
     if (!findById) throw new Error(ErrorTypes.InvalidMongoId);
     return findById;
+  }
+
+  public async detroy(_id:string):Promise<ICar> {
+    const del = await this._car.delete(_id);
+    if (!del) throw new Error(ErrorTypes.InvalidMongoId);
+    return del;
   }
 }
 
