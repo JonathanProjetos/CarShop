@@ -17,6 +17,12 @@ abstract class MongoModel<T> implements IModel<T> {
     const getAll = await this._model.find();
     return getAll;
   }
+
+  public async findById(_id:string):Promise <T | null> {
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.invalidMongoid);
+    const findId = await this._model.findById({ _id });
+    return findId;
+  }
 }
 
 export default MongoModel;
