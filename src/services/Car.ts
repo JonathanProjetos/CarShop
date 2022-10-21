@@ -23,6 +23,12 @@ class CarServices implements IService<ICar> {
     const findAll = await this._car.read();
     return findAll;
   }
+
+  public async readOne(_id:string):Promise<ICar> {
+    const findById = await this._car.readOne(_id);
+    if (!findById) throw new Error(ErrorTypes.InvalidMongoId);
+    return findById;
+  }
 }
 
 export default CarServices;
