@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const Vehicle = z.object({
+const VehicleZodSchema = z.object({
   model: z.string({
     required_error: 'Color is required',
     invalid_type_error: 'Color must be a string',
@@ -13,5 +13,5 @@ const Vehicle = z.object({
   status: z.boolean().optional(),
   buyValue: z.number(),
 });
-
-export type IVehicle = z.infer<typeof Vehicle>;
+export { VehicleZodSchema };
+export type IVehicle = z.infer<typeof VehicleZodSchema>;
