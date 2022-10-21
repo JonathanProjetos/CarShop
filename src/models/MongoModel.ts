@@ -30,6 +30,15 @@ abstract class MongoModel<T> implements IModel<T> {
     return del;
   }
 
+  public async update(_id: string, obg: T): Promise<T | null> {
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.invalidMongoid);
+    const updated = await this._model.findByIdAndUpdate(
+      { _id }, 
+      { ...obg } as UpdateQuery<T>,
+      { new: true },
+    );
+    return updated;
+  }
 }
 
 export default MongoModel;
