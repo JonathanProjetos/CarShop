@@ -20,6 +20,11 @@ class CarController {
     const findById = await this._service.readOne(id);
     return res.status(200).json(findById);
   }
+
+  public async read(_req:Request, res:Response<ICar[]>) {
+    const findAll = await this._service.read();
+    return res.status(200).json(findAll);
+  }
 }
 
 export default CarController;
