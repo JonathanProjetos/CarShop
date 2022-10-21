@@ -19,19 +19,19 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async readOne(_id: string): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error(ErrorTypes.invalidMongoid);
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
     const findId = await this._model.findById({ _id });
     return findId;
   }
 
   public async delete(_id: string): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error(ErrorTypes.invalidMongoid);
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
     const del = await this._model.findOneAndDelete({ _id });
     return del;
   }
 
   public async update(_id: string, obg: T): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error(ErrorTypes.invalidMongoid);
+    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
     const updated = await this._model.findByIdAndUpdate(
       { _id }, 
       { ...obg } as UpdateQuery<T>,
