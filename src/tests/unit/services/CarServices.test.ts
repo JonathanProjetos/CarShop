@@ -20,6 +20,9 @@ describe('Car Services', () => {
     sinon.stub(Model, 'findOne')
     .onCall(0).resolves(carMockId)
     .onCall(1).resolves(null);
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(carMockId)
+    .onCall(0).resolves(carMockId)
+    .onCall(1).resolves(null);
   });
 
   after(()=>{
@@ -58,14 +61,34 @@ describe('Car Services', () => {
     });
 
     it('readOne fail', async() => {
-      let capError;
+      let error;
       try {
         await carServices.readOne('62cf1fc6498565d94eba52cd');
       } catch (err:any) {
-        capError = err
+        error = err
       };
-      expect(capError, 'error não definido').not.to.be.undefined;
-      expect(capError.message).to.be.deep.equal(ErrorTypes.EntityNotFound);
+      expect(error, 'error não definido').not.to.be.undefined;
+      expect(error.message).to.be.deep.equal(ErrorTypes.EntityNotFound);
+    });
+  });
+
+  describe('EndPoint updated', () => {
+    
+    it('sucessfully updated', async() => {
+      const car = await carServices.update('62cf1fc6498565d94eba52cd', carMockId)
+      expect(car).to.be.deep.equal(carMockId)
+    });
+
+    it('updated fail', async() => {
+      let error;
+      try {
+        await carServices.update('62cf1fc6498565d94eba52cd', carMock);
+      } catch (err:any) {
+        error = err
+      };
+
+      expect(error, 'error não definido').not.to.be.undefined;
+      expect(error.message).to.be.deep.equal(ErrorTypes.EntityNotFound);
     });
   });
 
