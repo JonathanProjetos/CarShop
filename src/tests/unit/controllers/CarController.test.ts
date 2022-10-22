@@ -18,6 +18,8 @@ describe('Car Controller', () => {
 
   before(async () => {
     sinon.stub(Model,'create').resolves(carMockId);
+    sinon.stub(Model, 'find').resolves(carsMocks);
+    sinon.stub(Model, 'findOne').resolves(carMockId);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -30,7 +32,7 @@ describe('Car Controller', () => {
   describe('EndPoint create', () => {
 
     it('sucessfully create', async () => {
-      req.body = carMock
+      req.body = carMockId
 
       await carController.create(req, res)
 
@@ -39,5 +41,25 @@ describe('Car Controller', () => {
     });
   });
 
+  describe('EndPoint read', () => {
+    it('sucessfully read', async () => {
+
+      await carController.read(req, res)
+
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(carsMocks)).to.be.true;
+    });
+  });
+
+  describe('EndPoint readOne', () => {
+    it('sucessfully readOne', async () => {
+      req.params = { id:carMockId._id }
+
+      await carController.readOne(req, res)
+
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(carMockId)).to.be.true;
+    })
+  })
 
 });
