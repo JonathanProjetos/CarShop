@@ -23,6 +23,9 @@ describe('Car Services', () => {
     sinon.stub(Model, 'findByIdAndUpdate').resolves(carMockId)
     .onCall(0).resolves(carMockId)
     .onCall(1).resolves(null);
+    sinon.stub(Model, 'findByIdAndDelete').resolves(carMockId)
+    .onCall(0).resolves(carMockId)
+    .onCall(1).resolves(null);
   });
 
   after(()=>{
@@ -83,6 +86,25 @@ describe('Car Services', () => {
       let error;
       try {
         await carServices.update('62cf1fc6498565d94eba52cd', carMock);
+      } catch (err:any) {
+        error = err
+      };
+
+      expect(error, 'error não definido').not.to.be.undefined;
+      expect(error.message).to.be.deep.equal(ErrorTypes.EntityNotFound);
+    });
+  });
+
+  describe('EndPoint delete', () => {
+    it('sucessfully delete', async() => {
+      const car = await carServices.delete('62cf1fc6498565d94eba52cd')
+      expect(car).to.be.deep.equal(carMockId)
+    });
+
+    it('delete fail', async() => {
+      let error;
+      try {
+        await carServices.delete('62cf1fc6498565d94eba52cd');
       } catch (err:any) {
         error = err
       };
