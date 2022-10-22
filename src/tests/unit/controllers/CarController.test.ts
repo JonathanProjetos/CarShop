@@ -21,6 +21,7 @@ describe('Car Controller', () => {
     sinon.stub(Model, 'find').resolves(carsMocks);
     sinon.stub(Model, 'findOne').resolves(carMockId);
     sinon.stub(Model, 'findByIdAndDelete').resolves(carMockId);
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(carMockId)
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -75,6 +76,17 @@ describe('Car Controller', () => {
     });
   });
 
-  
+  describe('EndPoint update', () => {
+    it('sucessfully update', async () => {
+      req.body = carMock;
+      req.params = { id:carMockId._id };
+
+      await carController.update(req, res);
+
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(carMockId)).to.be.true;
+    });
+  });
+
 
 });
