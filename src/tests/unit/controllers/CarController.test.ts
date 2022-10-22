@@ -20,9 +20,11 @@ describe('Car Controller', () => {
     sinon.stub(Model,'create').resolves(carMockId);
     sinon.stub(Model, 'find').resolves(carsMocks);
     sinon.stub(Model, 'findOne').resolves(carMockId);
+    sinon.stub(Model, 'findByIdAndDelete').resolves(carMockId);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
+    res.end = sinon.stub().returns(res);
   });
 
   after(()=>{
@@ -32,9 +34,9 @@ describe('Car Controller', () => {
   describe('EndPoint create', () => {
 
     it('sucessfully create', async () => {
-      req.body = carMockId
+      req.body = carMockId;
 
-      await carController.create(req, res)
+      await carController.create(req, res);
 
       expect((res.status as sinon.SinonStub).calledWith(201)).to.be.true;
       expect((res.json as sinon.SinonStub).calledWith(carMockId)).to.be.true;
@@ -44,7 +46,7 @@ describe('Car Controller', () => {
   describe('EndPoint read', () => {
     it('sucessfully read', async () => {
 
-      await carController.read(req, res)
+      await carController.read(req, res);
 
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as sinon.SinonStub).calledWith(carsMocks)).to.be.true;
@@ -53,13 +55,26 @@ describe('Car Controller', () => {
 
   describe('EndPoint readOne', () => {
     it('sucessfully readOne', async () => {
-      req.params = { id:carMockId._id }
+      req.params = { id:carMockId._id };
 
-      await carController.readOne(req, res)
+      await carController.readOne(req, res);
 
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as sinon.SinonStub).calledWith(carMockId)).to.be.true;
-    })
-  })
+    });
+  });
+
+  describe('EndPoint delete', () => {
+    it('sucessfully delete', async() => {
+      req.params = { id:carMockId._id };
+
+      await carController.delete(req, res);
+
+      expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true;
+      expect((res.end as sinon.SinonStub).called).to.be.true;
+    });
+  });
+
+  
 
 });
