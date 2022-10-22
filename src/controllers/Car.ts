@@ -29,8 +29,8 @@ class CarController {
 
   public async delete(req:Request, res:Response<ICar>) {
     const { id } = req.params;
-    const destroy = await this._service.delete(id);
-    return res.status(200).json(destroy);
+    await this._service.delete(id);
+    return res.status(204).end();
   }
 
   public async update(req:Request, res:Response<ICar>) {
