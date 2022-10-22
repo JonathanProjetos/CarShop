@@ -10,7 +10,8 @@ class CarController {
 
   public async create(req:Request, res:Response<ICar>) {
     const { body } = req;
-
+    console.log(body);
+    
     const created = await this._service.create(body);
     return res.status(201).json(created);
   }

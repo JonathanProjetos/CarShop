@@ -26,13 +26,13 @@ class CarServices implements IService<ICar> {
 
   public async readOne(_id: string): Promise<ICar> {
     const findById = await this._car.readOne(_id);
-    if (!findById) throw new Error(ErrorTypes.InvalidMongoId);
+    if (!findById) throw new Error(ErrorTypes.EntityNotFound);
     return findById;
   }
 
   public async delete(_id: string): Promise<ICar> {
     const del = await this._car.delete(_id);
-    if (!del) throw new Error(ErrorTypes.InvalidMongoId);
+    if (!del) throw new Error(ErrorTypes.EntityNotFound);
     return del;
   }
 
