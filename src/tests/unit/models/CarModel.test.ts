@@ -1,20 +1,38 @@
 import * as sinon from 'sinon';
 import chai from 'chai';
 const { expect } = chai;
-import ICar from '../../../interfaces/ICar';
+import { Model } from 'mongoose';
+import CarModel from '../../../models/Cars';
+import { carMock, carsMocks, carMockId } from '../../mocks/ICar';
 
-describe('Sua descrição', () => {
+describe('Car Model', () => {
+  const carModel = new CarModel();
 
   before(async () => {
-    sinon
-      .stub()
-      .resolves();
+    sinon.stub(Model, 'create').resolves(carMockId);
+    sinon.stub(Model, 'find').resolves(carsMocks);
   });
 
-  after(()=>{
+  after(() => {
     sinon.restore();
-  })
+  });
 
-  it('', async () => {});
+  describe('EndPoint create', () => {
+    
+    it('create successfully', async () => { 
+      const newCar = await carModel.create(carMock);
+      expect(newCar).to.be.deep.equal(carMockId);
+    });
+
+  });
+
+  describe('EndPoint read', () => {
+    it('create successfully', async () => { 
+      const newCars = await carModel.read();
+      expect(newCars).to.be.deep.equal(carsMocks);
+    });
+  });
+
+  
 
 });

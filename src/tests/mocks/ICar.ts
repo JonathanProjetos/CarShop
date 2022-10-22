@@ -9,6 +9,16 @@ const carMock: ICar = {
   doorsQty: 2
 }
 
+const carMockId: ICar & { _id: string } = {
+  _id: '62cf1fc6498565d94eba52cd',
+  model: 'Fusca',
+  year: 2020,
+  color: 'red',
+  buyValue: 3000,
+  seatsQty: 2,
+  doorsQty: 2
+}
+
 const carsMocks: ICar[] = [
   {
     model: 'Siena',
@@ -28,4 +38,4 @@ const carsMocks: ICar[] = [
   }
 ]
 
-export { carMock, carsMocks }
+export { carMock, carsMocks, carMockId }
