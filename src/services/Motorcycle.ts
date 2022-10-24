@@ -19,6 +19,12 @@ class CarServices implements IService<IMotorcycle> {
     return created;
   }
 
+  public async read(): Promise<IMotorcycle[]> {
+    const findAll = await this._car.read();
+    return findAll;
+  }
+
+
 }
 
 export default CarServices;
