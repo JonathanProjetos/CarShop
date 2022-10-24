@@ -38,4 +38,4 @@ const motocycleMockAll:IMotorcycle[] = [
   },
 ]
  
-export { IMotorcycle, motocycleMockAll, motocycleMockId };
+export { motocycleMock, motocycleMockAll, motocycleMockId };
