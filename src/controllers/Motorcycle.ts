@@ -1,17 +1,23 @@
 import { Request, Response } from 'express';
-import { ICar } from '../interfaces/ICar';
+import { IMotorcycle } from '../interfaces/IMotorcycle';
 import { IService } from '../interfaces/IService';
 
 class CarController {
-  private _service: IService<ICar>;
-  constructor(service: IService<ICar>) {
+  private _service: IService<IMotorcycle>;
+  constructor(service: IService<IMotorcycle>) {
     this._service = service;
   }
 
-  public async create(req:Request, res:Response<ICar>) {
+  public async create(req:Request, res:Response<IMotorcycle>) {
     const { body } = req;
     const created = await this._service.create(body);
     return res.status(201).json(created);
+  }
+
+  public async readOne(req:Request, res:Response<IMotorcycle>) {
+    const { id } = req.params;
+    const findById = await this._service.readOne(id);
+    return res.status(200).json(findById);
   }
 }
 
