@@ -30,6 +30,13 @@ class CarController {
     await this._service.delete(id);
     return res.status(204).end();
   }
+
+  public async update(req:Request, res:Response<IMotorcycle>) {
+    const { id } = req.params;
+    const { body } = req;
+    const updated = await this._service.update(id, body);
+    return res.status(200).json(updated);
+  }
 }
 
 export default CarController;
