@@ -37,8 +37,17 @@ class CarServices implements IService<IMotorcycle> {
     return del;
   }
 
+  public async update(_id: string, obg: unknown): Promise<IMotorcycle> {
+    const verify = MotorcycleZodSchema.safeParse(obg);
 
+    if (!verify.success) throw verify.error;
 
+    const updated = await this._car.update(_id, verify.data);
+
+    if (!updated) throw new Error(ErrorTypes.EntityNotFound);
+
+    return updated;
+  }
 }
 
 export default CarServices;
