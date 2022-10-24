@@ -9,7 +9,7 @@ const model = new CarModel();
 const service = new CarService(model);
 const controller = new CarController(service);
 
-const MOTORCYCLE_LINK = '/motorcycle';
+const MOTORCYCLE_LINK = '/motorcycles';
 
 route.post(MOTORCYCLE_LINK, (req, res) => controller.create(req, res));
 route.get(MOTORCYCLE_LINK, (req, res) => controller.read(req, res));

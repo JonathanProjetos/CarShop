@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { IMotorcycle } from '../interfaces/IMotorcycle';
 import { IService } from '../interfaces/IService';
 
-class CarController {
+class MotoController {
   private _service: IService<IMotorcycle>;
   constructor(service: IService<IMotorcycle>) {
     this._service = service;
@@ -39,4 +39,4 @@ class CarController {
   }
 }
 
-export default CarController;
+export default MotoController;
