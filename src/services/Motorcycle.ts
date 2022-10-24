@@ -24,6 +24,12 @@ class CarServices implements IService<IMotorcycle> {
     return findAll;
   }
 
+  public async readOne(_id: string): Promise<IMotorcycle> {
+    const findById = await this._car.readOne(_id);
+    if (!findById) throw new Error(ErrorTypes.EntityNotFound);
+    return findById;
+  }
+
 
 }
 
