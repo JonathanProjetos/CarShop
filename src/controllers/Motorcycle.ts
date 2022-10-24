@@ -23,7 +23,13 @@ class CarController {
   public async read(_req:Request, res:Response<IMotorcycle[]>) {
     const findAll = await this._service.read();
     return res.status(200).json(findAll);
-  }  
+  }
+
+  public async delete(req:Request, res:Response<IMotorcycle>) {
+    const { id } = req.params;
+    await this._service.delete(id);
+    return res.status(204).end();
+  }
 }
 
 export default CarController;
