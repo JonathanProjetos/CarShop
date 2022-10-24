@@ -17,7 +17,7 @@ const motocycleMonogSchema = new Schema<IMotorcycle>({
 }, { versionKey: false });
 
 class Motocycle extends MongoModel<IMotorcycle> {
-  constructor(model = mongooseCreateModel('Motocycle', motocycleMonogSchema)) {
+  constructor(model = mongooseCreateModel('Motorcycle', motocycleMonogSchema)) {
     super(model);
   }
 }
